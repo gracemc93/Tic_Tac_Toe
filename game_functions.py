@@ -1,4 +1,4 @@
-#Functions used for Tic Tac Toe game
+# Functions used for Tic Tac Toe game
 def start_game():
     print("WELCOME TO TIC TAC TOE\n")
     player_one = input("\nPlayer one, 'x' or 'o'? ")
@@ -14,82 +14,72 @@ def start_board():
 def take_turn(game_board, turn, player_one, player_two):
     if turn == 1:
         position = input("\nPlayer one, pick a position: ")
-        test_int = int(position)
-        # print(game_board[test-1])
-        game_board[test_int - 1] = player_one
+        if position_status(game_board, position) == True:
+            print(position_status(game_board, position))
+            position_int = int(position)
+            game_board[position_int - 1] = player_one
+        else:
+            take_turn(game_board, turn, player_one, player_two)
 
     if turn == 2:
         position = input("\nPlayer two, pick a position: ")
-        test_int = int(position)
-        game_board[test_int - 1] = player_two
-        print("\nGame Board position", game_board[test_int - 1])
+        if position_status(game_board, position) == True:
+            position_int = int(position)
+            game_board[position_int - 1] = player_two
+        else:
+            take_turn(game_board, turn, player_one, player_two)
 
     return game_board
 
 
+# Print 3x3 board
 def display_board(game_board):
-    print("|", game_board[0], "|", game_board[1], "|", game_board[2], "|\n-------------")
-    print("|", game_board[3], "|", game_board[4], "|", game_board[5], "|\n-------------")
-    print("|", game_board[6], "|", game_board[7], "|", game_board[8], "|\n-------------")
+    for x in range(0, 8, 3):
+        print("|", game_board[x], "|", game_board[x + 1], "|", game_board[x + 2], "|\n-------------")
 
 
 def check_win(game_board):
-    if game_board[0] == 'x' and game_board[1] == 'x' and game_board[2] == 'x':
-        winner = 'x'
-        return winner;
-    elif game_board[0] == 'o' and game_board[1] == 'o' and game_board[2] == 'o':
-        winner = 'o'
-        return winner
-    elif game_board[3] == 'x' and game_board[4] == 'x' and game_board[5] == 'x':
-        winner = 'x'
-        return winner;
-    elif game_board[3] == 'o' and game_board[4] == 'o' and game_board[5] == 'o':
-        winner = 'o'
-        return winner;
-    elif game_board[6] == 'x' and game_board[7] == 'x' and game_board[8] == 'x':
-        winner = 'x'
-        return winner;
-    elif game_board[6] == 'o' and game_board[7] == 'o' and game_board[8] == 'o':
-        winner = 'o'
-        return winner;
-    elif game_board[0] == 'x' and game_board[3] == 'x' and game_board[6] == 'x':
-        winner = 'x'
-        return winner;
-    elif game_board[1] == 'x' and game_board[4] == 'x' and game_board[7] == 'x':
-        winner = 'x'
-        return winner
-    elif game_board[2] == 'x' and game_board[5] == 'x' and game_board[8] == 'x':
-        winner = 'x'
-        return winner
-    elif game_board[0] == 'x' and game_board[4] == 'x' and game_board[8] == 'x':
-        winner = 'x'
-        return winner
-    elif game_board[2] == 'x' and game_board[4] == 'x' and game_board[6] == 'x':
-        winner = 'x'
-        return winner
-    elif game_board[0] == 'o' and game_board[3] == 'o' and game_board[6] == 'o':
-        winner = 'o'
-        return winner
-    elif game_board[1] == 'o' and game_board[4] == 'o' and game_board[7] == 'o':
-        winner = 'o'
-        return winner
-    elif game_board[2] == 'o' and game_board[5] == 'o' and game_board[8] == 'o':
-        winner = 'o'
-        return winner
-    elif game_board[0] == 'o' and game_board[4] == 'o' and game_board[8] == 'o':
-        winner = 'o'
-        return winner
-    elif game_board[2] == 'o' and game_board[4] == 'o' and game_board[6] == 'o':
-        winner = 'o'
-        return winner
-    else:
-        for x in range(1, 9):
-            if game_board[x] != 'x' or 'o':
-                check_full = 'n'
-                return check_full
-            else:
-                check_full = 'y'
-                return check_full
+    # Check across for winner
+    for x in range(0, 8, 3):
+        if game_board[x] == 'x' and game_board[x + 1] == 'x' and game_board[x + 2] == 'x':
+            winner = 'x'
+            return winner
+        elif game_board[x] == 'o' and game_board[x + 1] == 'o' and game_board[x + 2] == 'o':
+            winner = 'o'
+            return winner
+
+    # Check down for winner
+    for x in range(3):
+        if game_board[x] == 'x' and game_board[x + 3] == 'x' and game_board[x + 6] == 'x':
+            winner = 'x'
+            return winner
+        elif game_board[x] == 'o' and game_board[x + 3] == 'o' and game_board[x + 6] == 'o':
+            winner = 'o'
+            return winner
+
+    # Check diagonally for winner
+    for x in range(1):
+        if game_board[x] == 'x' and game_board[x + 4] == 'x' and game_board[x + 8] == 'x':
+            winner = 'x'
+            return winner
+        elif game_board[x] == 'o' and game_board[x + 4] == 'o' and game_board[x + 8] == 'o':
+            winner = 'o'
+            return winner
+        elif game_board[x + 2] == 'x' and game_board[x + 4] == 'x' and game_board[x + 6] == 'x':
+            winner = 'x'
+            return winner
+        elif game_board[x + 2] == 'o' and game_board[x + 4] == 'o' and game_board[x + 6] == 'o':
+            winner = 'o'
+            return winner
+
+    # Check if board is full
+    for x in range(1, 9):
+        if game_board[x] != 'x' or game_board[x] != 'o':
+            check_full = 'n'
+            return check_full
+        else:
+            check_full = 'y'
+            return check_full
 
 
 def get_turn(turn):
@@ -97,5 +87,12 @@ def get_turn(turn):
         turn = 2
     elif turn == 2:
         turn = 1
-    print(turn)
     return turn
+
+
+def position_status(game_board, position):
+    position_int = int(position)
+    if game_board[position_int - 1] != 'x' and game_board[position_int - 1] != 'o':
+        return True
+    else:
+        return False

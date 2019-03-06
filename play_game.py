@@ -1,6 +1,7 @@
 import game_functions as game
 
 # Main
+# Setup for first game
 game_board = game.start_board()
 player_one = game.start_game()
 player_two = ''
@@ -41,5 +42,3 @@ while replay == 'y':
         print("\nThanks for playing, final scores are: \nPlayer One: ", player_one_wins, "\nPlayer Two Scores",
               player_two_wins)
         break
-
-# display_board(game_board)
