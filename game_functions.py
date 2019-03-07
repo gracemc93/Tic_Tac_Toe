@@ -1,19 +1,26 @@
 # Functions used for Tic Tac Toe game
 def start_game():
-    print("WELCOME TO TIC TAC TOE\n")
     player_one = input("\nPlayer one, 'x' or 'o'? ")
     print("\n")
-    return player_one
 
+    if check_valid_symbol(player_one) == True:
+        return player_one
+    else:
+        start_game()
 
+# Set board to starting state
 def start_board():
     game_board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     return game_board
 
-
+# Function to handle a move
 def take_turn(game_board, turn, player_one, player_two):
     if turn == 1:
         position = input("\nPlayer one, pick a position: ")
+        print("THIS IS THE POSITION", position)
+        # if check_valid_position(position) == False:
+        #     print("Position invalid, must be between 1 and 9\n")
+        #     take_turn(game_board, turn, player_one, player_two)
         if position_status(game_board, position) == True:
             print(position_status(game_board, position))
             position_int = int(position)
@@ -38,6 +45,7 @@ def display_board(game_board):
         print("|", game_board[x], "|", game_board[x + 1], "|", game_board[x + 2], "|\n-------------")
 
 
+# Checks the board for a winning combo
 def check_win(game_board):
     # Check across for winner
     for x in range(0, 8, 3):
@@ -73,15 +81,18 @@ def check_win(game_board):
             return winner
 
     # Check if board is full
+    counter = 0
     for x in range(1, 9):
         if game_board[x] != 'x' or game_board[x] != 'o':
-            check_full = 'n'
-            return check_full
-        else:
-            check_full = 'y'
-            return check_full
+            counter = counter + 1
+    if counter > 0:
+        check_full = 'n'
+        return check_full
+    elif counter == 0:
+        check_full = 'y'
+        return check_full
 
-
+# Switches user turns
 def get_turn(turn):
     if turn == 1:
         turn = 2
@@ -89,10 +100,28 @@ def get_turn(turn):
         turn = 1
     return turn
 
-
+# Checks if a position has already been occupied
 def position_status(game_board, position):
+    print("POSITION IN POSITION STATUS", position)
     position_int = int(position)
     if game_board[position_int - 1] != 'x' and game_board[position_int - 1] != 'o':
         return True
     else:
         return False
+
+# Check that symbol is only 'x' or 'o'
+def check_valid_symbol(player_one):
+    if player_one == 'x' or player_one == 'o':
+        return True
+    else:
+        print("Invalid symbol, must be 'x' or 'o'")
+        return False
+
+
+# def check_valid_position(position):
+#     valid_position = False
+#     starting_gameboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+#     for x in range(8):
+#         if starting_gameboard[x] == position:
+#             valid_position = True
+#     return valid_position

@@ -1,7 +1,7 @@
 import game_functions as game
 
 # Main
-# Setup for first game
+# Setup data for first game
 game_board = game.start_board()
 player_one = game.start_game()
 player_two = ''
@@ -10,6 +10,7 @@ player_two_wins = 0
 replay = 'y'
 turn = 1
 
+# If replay is set, start a game
 while replay == 'y':
     game_board = game.start_board()
     if player_one == 'x':
