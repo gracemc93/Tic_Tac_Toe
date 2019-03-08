@@ -17,24 +17,23 @@ def start_board():
 def take_turn(game_board, turn, player_one, player_two):
     if turn == 1:
         position = input("\nPlayer one, pick a position: ")
-        print("THIS IS THE POSITION", position)
-        # if check_valid_position(position) == False:
-        #     print("Position invalid, must be between 1 and 9\n")
-        #     take_turn(game_board, turn, player_one, player_two)
-        if position_status(game_board, position) == True:
-            print(position_status(game_board, position))
-            position_int = int(position)
-            game_board[position_int - 1] = player_one
-        else:
-            take_turn(game_board, turn, player_one, player_two)
+        while check_valid_position(position) != True:
+            position = input("Position invalid, please enter another: ")
+        while position_status(game_board, position) != True:
+            position = input("This position is taken, chose another")
+
+        position_int = int(position)
+        game_board[position_int - 1] = player_one
 
     if turn == 2:
         position = input("\nPlayer two, pick a position: ")
-        if position_status(game_board, position) == True:
-            position_int = int(position)
-            game_board[position_int - 1] = player_two
-        else:
-            take_turn(game_board, turn, player_one, player_two)
+        while check_valid_position(position) != True:
+            position = input("Position invalid, please enter another: ")
+        while position_status(game_board, position) != True:
+            position = input("This postion is taken, chose another")
+
+        position_int = int(position)
+        game_board[position_int - 1] = player_two
 
     return game_board
 
@@ -102,7 +101,6 @@ def get_turn(turn):
 
 # Checks if a position has already been occupied
 def position_status(game_board, position):
-    print("POSITION IN POSITION STATUS", position)
     position_int = int(position)
     if game_board[position_int - 1] != 'x' and game_board[position_int - 1] != 'o':
         return True
@@ -117,11 +115,11 @@ def check_valid_symbol(player_one):
         print("Invalid symbol, must be 'x' or 'o'")
         return False
 
-
-# def check_valid_position(position):
-#     valid_position = False
-#     starting_gameboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-#     for x in range(8):
-#         if starting_gameboard[x] == position:
-#             valid_position = True
-#     return valid_position
+# Check position input is valid
+def check_valid_position(position):
+    valid_position = False
+    starting_gameboard = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    for x in range(8):
+        if starting_gameboard[x] == position:
+            valid_position = True
+    return valid_position

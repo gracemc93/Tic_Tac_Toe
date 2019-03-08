@@ -1,4 +1,5 @@
 import game_functions as game
+import random
 
 # Main
 # Setup data for first game
@@ -8,7 +9,8 @@ player_two = ''
 player_one_wins = 0
 player_two_wins = 0
 replay = 'y'
-turn = 1
+turn = random.randint(1, 2)
+print(turn)
 
 # If replay is set, start a game
 while replay == 'y':
